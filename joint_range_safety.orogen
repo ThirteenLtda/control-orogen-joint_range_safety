@@ -1,0 +1,37 @@
+name "joint_range_safety"
+
+import_types_from "base"
+
+# Task that will enforce position limits using a constant joint command
+#
+# This task will verify that joint limits are within boundaries. If they
+# are, the command is passed through to the motors. If not, the task
+# goes into the OUT_OF_LIMITS error state and produces a constant command
+# (with the sign set to counter the limits)
+#
+# It is meant as a last line of defense. The primary mean for safety
+# is to ensure that the control system does not cross boundaries.
+task_context "ConstantPositionEnforcer" do
+    needs_configuration
+
+    # The command that should be output when out of bounds
+    #
+    # The component generates +error_command if the joint positions
+    # are below min, and -error_command if the joint positions is
+    # above max.
+    property "error_command", "/base/commands/Joints"
+
+    # The nominal command
+    #
+    # It is passed through when not in error state
+    input_port 'nominal_command', '/base/commands/Joints'
+
+    # The joint state
+    input_port 'joints_samples', '/base/samples/Joints'
+
+    # The output command
+    output_port 'joints_command', '/base/samples/Joints'
+
+    port_driven
+end
+

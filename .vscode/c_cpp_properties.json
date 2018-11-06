@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "compileCommands": "/home/doudou/dev/build_area/heads/control/orogen/joint_range_safety/compile_commands.json"
+        },
+        {
+            "name": "Linux",
+            "compileCommands": "/home/doudou/dev/build_area/heads/control/orogen/joint_range_safety/compile_commands.json"
+        },
+        {
+            "name": "Win32",
+            "compileCommands": "/home/doudou/dev/build_area/heads/control/orogen/joint_range_safety/compile_commands.json"
+        }
+    ],
+    "version": 3
+}
