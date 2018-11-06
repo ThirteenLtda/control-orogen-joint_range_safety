@@ -4,6 +4,7 @@
 #define JOINT_RANGE_SAFETY_CONSTANTPOSITIONENFORCER_TASK_HPP
 
 #include "joint_range_safety/ConstantPositionEnforcerBase.hpp"
+#include <base/commands/Joints.hpp>
 
 namespace joint_range_safety{
 
@@ -111,6 +112,22 @@ is to ensure that the control system does not cross boundaries.
          * before calling start() again.
          */
         void cleanupHook();
+
+    private:
+        /** Process a given command to replace the command of out-of-bounds
+         * joints by the static error command.
+         * 
+         * @return true if there are invalid joints, false otherwise
+         */
+        bool processCommand(
+            base::commands::Joints& jointsCommand,
+            base::samples::Joints const& jointsState);
+
+        size_t mJointsSize;
+        base::commands::Joints mCommand;
+        base::samples::Joints mJointsState;
+        base::commands::Joints mErrorCommand;
+        base::JointLimits mLimits;
     };
 }
 

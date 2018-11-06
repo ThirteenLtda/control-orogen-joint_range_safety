@@ -21,16 +21,26 @@ task_context "ConstantPositionEnforcer" do
     # above max.
     property "error_command", "/base/commands/Joints"
 
+    # The joint limits
+    #
+    # Only positions are used. The size must match the error_command
+    # property
+    property 'joints_limits', '/base/JointLimits'
+
     # The nominal command
     #
     # It is passed through when not in error state
-    input_port 'nominal_command', '/base/commands/Joints'
+    input_port 'nominal_commands', '/base/commands/Joints'
 
     # The joint state
     input_port 'joints_samples', '/base/samples/Joints'
 
     # The output command
-    output_port 'joints_command', '/base/samples/Joints'
+    output_port 'joints_commands', '/base/samples/Joints'
+
+    exception_states 'INVALID_JOINTS_SAMPLE_SIZE',
+        'INVALID_NOMINAL_COMMAND_SIZE'
+    runtime_states 'OUT_OF_BOUNDS'
 
     port_driven
 end
