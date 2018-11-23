@@ -88,7 +88,7 @@ void ConstantPositionEnforcer::updateHook()
 
         if (processCommand(mCommand, mJointsState)) {
             if (state() != RUNNING) {
-                state();
+                state(RUNNING);
             }
         }
         else {
